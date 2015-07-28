@@ -9,7 +9,7 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </State>
-  <State entryAction="" whileAction="" type="regular" id="2" name="State_2" exitAction="">
+  <State entryAction="" whileAction="" type="regular" id="2" name="Idle" exitAction="">
    <Hmi width="140" radius="8" height="80">
     <Position>
      <Point x="208" y="200"/>
@@ -17,7 +17,7 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </State>
-  <State entryAction="" whileAction="" type="regular" id="3" name="State_3" exitAction="">
+  <State entryAction="" whileAction="" type="regular" id="3" name="Requesting" exitAction="">
    <Hmi width="140" radius="8" height="80">
     <Position>
      <Point x="567" y="197"/>
@@ -25,10 +25,10 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </State>
-  <State entryAction="" whileAction="" type="regular" id="4" name="State_4" exitAction="">
+  <State entryAction="" whileAction="" type="regular" id="4" name="Using" exitAction="">
    <Hmi width="140" radius="8" height="80">
     <Position>
-     <Point x="376" y="327"/>
+     <Point x="367" y="365"/>
     </Position>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
@@ -58,10 +58,10 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="" srcStateId="2" action="request" priority="1" events="" id="2" dstStateId="3">
+  <Transition guard="" srcStateId="2" action="OutPort(request)=1;" priority="1" events="" id="2" dstStateId="3">
    <Hmi visible="1">
     <ActionPoint>
-     <Point x="392.5" y="151.5"/>
+     <Point x="346.5" y="151.5"/>
     </ActionPoint>
     <ControlPoint>
      <Point x="406" y="167"/>
@@ -70,7 +70,7 @@
      <Point x="497" y="196"/>
     </EndPoint>
     <GuardPoint>
-     <Point x="363.5" y="150.5"/>
+     <Point x="320.5" y="152.5"/>
     </GuardPoint>
     <PriorityPoint>
      <Point x="268" y="186"/>
@@ -81,16 +81,16 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="" srcStateId="3" action="ack" priority="1" events="grant" id="3" dstStateId="4">
+  <Transition guard="InPort(grant)==1" srcStateId="3" action="OutPort(ack)=1;" priority="1" events="" id="3" dstStateId="4">
    <Hmi visible="1">
     <ActionPoint>
-     <Point x="554" y="289.25"/>
+     <Point x="500" y="309.25"/>
     </ActionPoint>
     <ControlPoint>
      <Point x="506" y="306.5"/>
     </ControlPoint>
     <EndPoint>
-     <Point x="446" y="314"/>
+     <Point x="437" y="352"/>
     </EndPoint>
     <GuardPoint>
      <Point x="496" y="285.75"/>
@@ -104,10 +104,10 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="" srcStateId="4" action="release" priority="1" events="" id="4" dstStateId="2">
+  <Transition guard="" srcStateId="4" action="OutPort(release)=1;" priority="1" events="" id="4" dstStateId="2">
    <Hmi visible="1">
     <ActionPoint>
-     <Point x="184.25" y="300.75"/>
+     <Point x="122.25" y="322.75"/>
     </ActionPoint>
     <ControlPoint>
      <Point x="224.5" y="304.5"/>
@@ -116,30 +116,30 @@
      <Point x="200" y="240"/>
     </EndPoint>
     <GuardPoint>
-     <Point x="153.75" y="300.25"/>
+     <Point x="96.75" y="323.25"/>
     </GuardPoint>
     <PriorityPoint>
      <Point x="303" y="329"/>
     </PriorityPoint>
     <StartPoint>
-     <Point x="306" y="314"/>
+     <Point x="297" y="352"/>
     </StartPoint>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="" srcStateId="3" action="" priority="2" events="nack" id="5" dstStateId="2">
+  <Transition guard="InPort(nack)==1" srcStateId="3" action="" priority="2" events="" id="5" dstStateId="2">
    <Hmi visible="1">
     <ActionPoint>
-     <Point x="390.75" y="206.5"/>
+     <Point x="362.75" y="280.5"/>
     </ActionPoint>
     <ControlPoint>
-     <Point x="380.5" y="248"/>
+     <Point x="377.5" y="280"/>
     </ControlPoint>
     <EndPoint>
      <Point x="278" y="219"/>
     </EndPoint>
     <GuardPoint>
-     <Point x="339.25" y="205.5"/>
+     <Point x="307.25" y="256.5"/>
     </GuardPoint>
     <PriorityPoint>
      <Point x="500" y="224"/>
@@ -152,8 +152,15 @@
   </Transition>
  </Transitions>
  <DataModel>
-  <Input/>
-  <Output/>
+  <Input>
+   <Attribute position="0" multiplicity="1" alias="grant" type="int32_t"/>
+   <Attribute position="1" multiplicity="1" alias="nack" type="int32_t"/>
+  </Input>
+  <Output>
+   <Attribute position="0" multiplicity="1" alias="request" type="int32_t"/>
+   <Attribute position="1" multiplicity="1" alias="ack" type="int32_t"/>
+   <Attribute position="2" multiplicity="1" alias="release" type="int32_t"/>
+  </Output>
   <LocalVariables/>
   <EventsIn/>
   <EventsOut/>
