@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SMCube version="1.0" name="StateMachine">
+ <States/>
+ <Transitions/>
+ <DataModel>
+  <Input/>
+  <Output/>
+  <LocalVariables/>
+  <EventsIn/>
+  <EventsOut/>
+ </DataModel>
+</SMCube>
