@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SMCube version="1.0" name="StateMachine">
+ <States>
+  <State entryAction="" whileAction="" type="initial" id="1" name="" exitAction="">
+   <Hmi width="12" radius="6" height="12">
+    <Position>
+     <Point x="135" y="105"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="OutPort(ack)=0; LocVar(sjTime)=0;" whileAction="LocVar(sjTime)++;" type="regular" id="2" name="Idle" exitAction="">
+   <Hmi width="300" radius="8" height="80">
+    <Position>
+     <Point x="188" y="200"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="" whileAction="" type="regular" id="3" name="Requesting" exitAction="">
+   <Hmi width="120" radius="8" height="80">
+    <Position>
+     <Point x="810" y="222"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="OutPort(request)=0; OutPort(release)=0; LocVar(sjTime)=0;" whileAction="LocVar(sjTime)++;" type="regular" id="4" name="Using" exitAction="">
+   <Hmi width="400" radius="8" height="80">
+    <Position>
+     <Point x="409" y="509"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+ </States>
+ <Transitions>
+  <Transition guard="" srcStateId="1" action="" priority="1" events="" id="1" dstStateId="2">
+   <Hmi visible="0">
+    <ActionPoint>
+     <Point x="8.90070286343755e-308" y="8.900702863567067e-308"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="140" y="129"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="138.7142857142857" y="160"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="8.90070286343755e-308" y="8.90070286343755e-308"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="8.90070286343755e-308" y="8.900702863567067e-308"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="83" y="58"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="LocVar(sjTime) > 1" srcStateId="2" action="OutPort(request)=1;" priority="1" events="" id="2" dstStateId="3">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="453.5" y="126.5"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="566" y="125"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="750" y="221"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="453.5" y="97.5"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="268" y="186"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="338" y="189"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(grant)==1" srcStateId="3" action="OutPort(ack)=1;" priority="1" events="" id="3" dstStateId="4">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="625" y="365.25"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="766" y="452.5"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="609" y="496"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="619" y="334.75"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="510" y="238"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="826.7142857142857" y="262"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="LocVar(sjTime) > 2" srcStateId="4" action="OutPort(release)=1;" priority="1" events="" id="4" dstStateId="2">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="143.25" y="390.75"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="78.5" y="421.5"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="170.8571428571429" y="240"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="134.75" y="360.25"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="303" y="329"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="209" y="496"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+ </Transitions>
+ <DataModel>
+  <Input>
+   <Attribute position="0" multiplicity="1" alias="grant" type="int32_t"/>
+  </Input>
+  <Output>
+   <Attribute position="0" multiplicity="1" alias="request" type="int32_t"/>
+   <Attribute position="1" multiplicity="1" alias="ack" type="int32_t"/>
+   <Attribute position="2" multiplicity="1" alias="release" type="int32_t"/>
+  </Output>
+  <LocalVariables>
+   <Attribute position="0" multiplicity="1" alias="sjTime" type="int8_t"/>
+  </LocalVariables>
+  <EventsIn/>
+  <EventsOut/>
+ </DataModel>
+</SMCube>

@@ -135,10 +135,10 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="InPort(release)==1" srcStateId="5" action="" priority="1" events="" id="5" dstStateId="1">
+  <Transition guard="InPort(release)==1" srcStateId="5" action="OutPort(grant)=0;" priority="1" events="" id="5" dstStateId="1">
    <Hmi visible="1">
     <ActionPoint>
-     <Point x="239.25" y="281.25"/>
+     <Point x="197.25" y="282.25"/>
     </ActionPoint>
     <ControlPoint>
      <Point x="164.5" y="274.5"/>
@@ -167,7 +167,6 @@
   </Input>
   <Output>
    <Attribute position="0" multiplicity="1" alias="grant" type="int32_t"/>
-   <Attribute position="1" multiplicity="1" alias="nack" type="int32_t"/>
   </Output>
   <LocalVariables/>
   <EventsIn/>
