@@ -76,20 +76,20 @@ bool StateMachine_0::dispatch(const StateMachine_0Input* input, int size, int ev
                 /* Set current transition */
                 transition_.id_ = 3;
                 /*Exit from Requesting*/
-                ;;
+                output_.out_0 = 0;;
                 /*Do Action */
                 output_.out_1=1; output_.out_2=input_.in_1;;
                 /*Change State to Using */
                 state_.id_ = 4;
                 /*Entry in Using*/
-                output_.out_0=0; local_var_.lvar_0=0;;
+                local_var_.lvar_0=0;;
             }
             else if ( true  && input_.in_1 == 0 )
             {
                 /* Set current transition */
                 transition_.id_ = 5;
                 /*Exit from Requesting*/
-                ;;
+                output_.out_0 = 0;;
                 /*Do Action */
                 ;;
                 /*Change State to Idle */
