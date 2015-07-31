@@ -17,7 +17,7 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </State>
-  <State entryAction="" whileAction="" type="regular" id="3" name="Requesting" exitAction="">
+  <State entryAction="" whileAction="" type="regular" id="3" name="Requesting" exitAction="OutPort(request) = 0;">
    <Hmi width="120" radius="8" height="80">
     <Position>
      <Point x="810" y="222"/>
@@ -25,7 +25,7 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </State>
-  <State entryAction="OutPort(request)=0; LocVar(sjTime)=0;" whileAction="LocVar(sjTime)++;" type="regular" id="4" name="Using" exitAction="">
+  <State entryAction="LocVar(sjTime)=0;" whileAction="LocVar(sjTime)++;" type="regular" id="4" name="Using" exitAction="">
    <Hmi width="400" radius="8" height="80">
     <Position>
      <Point x="478" y="510"/>
