@@ -1,4 +1,4 @@
-#include "StateMachine_1.h"
+#include "StateMachine_0.h"
 #include <cstring>
 
 #define CHECK_EVENT(in, pos) \
@@ -7,14 +7,14 @@
 #define SET_EVENT(out, pos) \
     ( out |= ((unsigned int)1 << pos) )
 
-StateMachine_1::StateMachine_1()
+StateMachine_0::StateMachine_0()
 {
     inputSize_ = sizeof(input_);
     outputSize_ = sizeof(output_);
     lVarsSize_ = sizeof(local_var_);
 }
 
-void StateMachine_1::init()
+void StateMachine_0::init()
 {
     /* Clear */
     memset((void*)&input_, 0, sizeof(input_));
@@ -31,7 +31,7 @@ void StateMachine_1::init()
     local_var_.lvar_0=0;;
 }
 
-bool StateMachine_1::dispatch(const StateMachine_1Input* input, int size, int eventsIn)
+bool StateMachine_0::dispatch(const StateMachine_0Input* input, int size, int eventsIn)
 {
     /*Check for input size*/
     if ( size && size != sizeof(input_) )
@@ -99,7 +99,7 @@ bool StateMachine_1::dispatch(const StateMachine_1Input* input, int size, int ev
                 /*Exit from Using*/
                 ;;
                 /*Do Action */
-                output_.out_1=0;;
+                output_.out_1=-1;;
                 /*Change State to Idle */
                 state_.id_ = 2;
                 /*Entry in Idle*/
@@ -120,43 +120,43 @@ bool StateMachine_1::dispatch(const StateMachine_1Input* input, int size, int ev
     return true;
 }
 
-const StateMachine_1Input* StateMachine_1::input() const
+const StateMachine_0Input* StateMachine_0::input() const
 {
     return &input_;
 }
 
-const StateMachine_1Output* StateMachine_1::output() const
+const StateMachine_0Output* StateMachine_0::output() const
 {
     return &output_;
 }
 
-const StateMachine_1LocalVars* StateMachine_1::localVariables() const
+const StateMachine_0LocalVars* StateMachine_0::localVariables() const
 {
     return &local_var_;
 }
 
-const SMStateData* StateMachine_1::state() const
+const SMStateData* StateMachine_0::state() const
 {
     return &state_;
 }
 
-const SMTransitionData* StateMachine_1::transition() const
+const SMTransitionData* StateMachine_0::transition() const
 {
     return &transition_;
 }
 
-int StateMachine_1::eventsInPorts() const
+int StateMachine_0::eventsInPorts() const
 {
     return eventsInPorts_;
 }
 
-unsigned int StateMachine_1::eventsOutPorts() const
+unsigned int StateMachine_0::eventsOutPorts() const
 {
     return eventsOutPorts_;
 }
 
-/*Global instance of StateMachine_1*/
-StateMachine_1 smInst;
+/*Global instance of StateMachine_0*/
+StateMachine_0 smInst;
 
 
 /***** Callbacks *****/
@@ -167,7 +167,7 @@ void state_machine_init()
 
 bool state_machine_dispatch(const void* input, int size, int eventsIn)
 {
-    return smInst.dispatch((StateMachine_1Input*)input, size, eventsIn);
+    return smInst.dispatch((StateMachine_0Input*)input, size, eventsIn);
 }
 
 const void* state_machine_output(int* size)

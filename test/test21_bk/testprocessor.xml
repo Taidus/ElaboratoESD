@@ -104,7 +104,7 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="LocVar(sjTime) > 2" srcStateId="4" action="OutPort(ack_notRelease)=0;" priority="1" events="" id="4" dstStateId="2">
+  <Transition guard="LocVar(sjTime) > 2" srcStateId="4" action="OutPort(ack_notRelease)=-1;" priority="1" events="" id="4" dstStateId="2">
    <Hmi visible="1">
     <ActionPoint>
      <Point x="192.25" y="371.75"/>

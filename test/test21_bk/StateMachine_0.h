@@ -23,19 +23,19 @@ struct StateMachine_0Input
 {
     int32_t in_0;
     int32_t in_1;
-    int32_t in_2;
 };
 
 /*Output data structure*/
 struct StateMachine_0Output
 {
     int32_t out_0;
+    int32_t out_1;
 };
 
 /*Local variables data structure*/
 struct StateMachine_0LocalVars
 {
-    int32_t lvar_0;
+    int8_t lvar_0;
 };
 
 /*Events Input definition*/
@@ -64,10 +64,9 @@ struct SMTransitionData
 /*States*/
 enum StateType
 {
-    Waiting = 1,
-    Elaborating = 3,
-    Accepting = 4,
-    Serving = 5
+    Idle = 2,
+    Requesting = 3,
+    Using = 4
 };
 
 /*State machine class*/

@@ -1,5 +1,5 @@
-#ifndef STATEMACHINE_0_H
-#define STATEMACHINE_0_H
+#ifndef STATEMACHINE_1_H
+#define STATEMACHINE_1_H
 #include <string>
 #include <iostream>
 
@@ -19,7 +19,7 @@
 
 #pragma pack(push, 1)
 /*Input data structure*/
-struct StateMachine_0Input
+struct StateMachine_1Input
 {
     int32_t in_0;
     int32_t in_1;
@@ -27,15 +27,15 @@ struct StateMachine_0Input
 };
 
 /*Output data structure*/
-struct StateMachine_0Output
+struct StateMachine_1Output
 {
     int32_t out_0;
 };
 
 /*Local variables data structure*/
-struct StateMachine_0LocalVars
+struct StateMachine_1LocalVars
 {
-    int32_t lvar_0;
+    int8_t lvar_0;
 };
 
 /*Events Input definition*/
@@ -71,16 +71,16 @@ enum StateType
 };
 
 /*State machine class*/
-class StateMachine_0
+class StateMachine_1
 {
 public:
 /* public methods */
-    StateMachine_0();
+    StateMachine_1();
     void init();
-    bool dispatch(const StateMachine_0Input* input, int size, int eventsIn);
-    const StateMachine_0Input* input() const;
-    const StateMachine_0Output* output() const;
-    const StateMachine_0LocalVars* localVariables() const;
+    bool dispatch(const StateMachine_1Input* input, int size, int eventsIn);
+    const StateMachine_1Input* input() const;
+    const StateMachine_1Output* output() const;
+    const StateMachine_1LocalVars* localVariables() const;
     const SMStateData* state() const;
     const SMTransitionData* transition() const;
     int eventsInPorts() const;
@@ -92,9 +92,9 @@ public:
 
 private:
 /* Attributes */
-    StateMachine_0Input input_;
-    StateMachine_0Output output_;
-    StateMachine_0LocalVars local_var_;
+    StateMachine_1Input input_;
+    StateMachine_1Output output_;
+    StateMachine_1LocalVars local_var_;
     SMStateData state_;
     SMTransitionData transition_;
     int eventsInPorts_;
@@ -102,9 +102,9 @@ private:
     int inputSize_;
     int outputSize_;
     int lVarsSize_;
-}; /*StateMachine_0*/
+}; /*StateMachine_1*/
 
-extern StateMachine_0 smInst;
+extern StateMachine_1 smInst;
 
 
 /***** Callbacks *****/

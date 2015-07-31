@@ -1,5 +1,5 @@
-#ifndef STATEMACHINE_0_H
-#define STATEMACHINE_0_H
+#ifndef STATEMACHINE_2_H
+#define STATEMACHINE_2_H
 #include <string>
 #include <iostream>
 
@@ -19,23 +19,23 @@
 
 #pragma pack(push, 1)
 /*Input data structure*/
-struct StateMachine_0Input
+struct StateMachine_2Input
 {
     int32_t in_0;
     int32_t in_1;
-    int32_t in_2;
 };
 
 /*Output data structure*/
-struct StateMachine_0Output
+struct StateMachine_2Output
 {
     int32_t out_0;
+    int32_t out_1;
 };
 
 /*Local variables data structure*/
-struct StateMachine_0LocalVars
+struct StateMachine_2LocalVars
 {
-    int32_t lvar_0;
+    int8_t lvar_0;
 };
 
 /*Events Input definition*/
@@ -64,23 +64,22 @@ struct SMTransitionData
 /*States*/
 enum StateType
 {
-    Waiting = 1,
-    Elaborating = 3,
-    Accepting = 4,
-    Serving = 5
+    Idle = 2,
+    Requesting = 3,
+    Using = 4
 };
 
 /*State machine class*/
-class StateMachine_0
+class StateMachine_2
 {
 public:
 /* public methods */
-    StateMachine_0();
+    StateMachine_2();
     void init();
-    bool dispatch(const StateMachine_0Input* input, int size, int eventsIn);
-    const StateMachine_0Input* input() const;
-    const StateMachine_0Output* output() const;
-    const StateMachine_0LocalVars* localVariables() const;
+    bool dispatch(const StateMachine_2Input* input, int size, int eventsIn);
+    const StateMachine_2Input* input() const;
+    const StateMachine_2Output* output() const;
+    const StateMachine_2LocalVars* localVariables() const;
     const SMStateData* state() const;
     const SMTransitionData* transition() const;
     int eventsInPorts() const;
@@ -92,9 +91,9 @@ public:
 
 private:
 /* Attributes */
-    StateMachine_0Input input_;
-    StateMachine_0Output output_;
-    StateMachine_0LocalVars local_var_;
+    StateMachine_2Input input_;
+    StateMachine_2Output output_;
+    StateMachine_2LocalVars local_var_;
     SMStateData state_;
     SMTransitionData transition_;
     int eventsInPorts_;
@@ -102,9 +101,9 @@ private:
     int inputSize_;
     int outputSize_;
     int lVarsSize_;
-}; /*StateMachine_0*/
+}; /*StateMachine_2*/
 
-extern StateMachine_0 smInst;
+extern StateMachine_2 smInst;
 
 
 /***** Callbacks *****/
