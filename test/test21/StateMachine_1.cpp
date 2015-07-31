@@ -50,7 +50,7 @@ bool StateMachine_1::dispatch(const StateMachine_1Input* input, int size, int ev
     {
         case Idle:
         {
-            if ( true  && local_var_.lvar_0 > 1 )
+            if ( true  && local_var_.lvar_0 > 0 )
             {
                 /* Set current transition */
                 transition_.id_ = 2;
@@ -71,18 +71,31 @@ bool StateMachine_1::dispatch(const StateMachine_1Input* input, int size, int ev
         }break;
         case Requesting:
         {
-            if ( true  && input_.in_1==input_.in_0 )
+            if ( true  && input_.in_1 > 0 )
             {
                 /* Set current transition */
                 transition_.id_ = 3;
                 /*Exit from Requesting*/
                 ;;
                 /*Do Action */
-                output_.out_1=1;;
+                output_.out_1=1; output_.out_2=input_.in_1;;
                 /*Change State to Using */
                 state_.id_ = 4;
                 /*Entry in Using*/
                 output_.out_0=0; local_var_.lvar_0=0;;
+            }
+            else if ( true  && input_.in_1 == 0 )
+            {
+                /* Set current transition */
+                transition_.id_ = 5;
+                /*Exit from Requesting*/
+                ;;
+                /*Do Action */
+                ;;
+                /*Change State to Idle */
+                state_.id_ = 2;
+                /*Entry in Idle*/
+                local_var_.lvar_0=0;;
             }
             else
             {
@@ -99,7 +112,7 @@ bool StateMachine_1::dispatch(const StateMachine_1Input* input, int size, int ev
                 /*Exit from Using*/
                 ;;
                 /*Do Action */
-                output_.out_1=0;;
+                output_.out_1=0;  output_.out_2=0;;
                 /*Change State to Idle */
                 state_.id_ = 2;
                 /*Entry in Idle*/

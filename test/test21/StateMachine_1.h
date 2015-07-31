@@ -30,6 +30,7 @@ struct StateMachine_1Output
 {
     int32_t out_0;
     int32_t out_1;
+    int32_t out_2;
 };
 
 /*Local variables data structure*/
