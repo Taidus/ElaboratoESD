@@ -9,10 +9,10 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </State>
-  <State entryAction="LocVar(sjTime)=0;" whileAction="LocVar(sjTime)++;" type="regular" id="2" name="Idle" exitAction="">
-   <Hmi width="300" radius="8" height="80">
+  <State entryAction="LocVar(sjTime)=InPort(rndSjTime); LocVar(sjCounter)=0;" whileAction="LocVar(sjCounter)++; OutPort(ack_notRelease) = 0;" type="regular" id="2" name="Idle" exitAction="">
+   <Hmi width="400" radius="8" height="80">
     <Position>
-     <Point x="188" y="199"/>
+     <Point x="213" y="203"/>
     </Position>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
@@ -25,7 +25,7 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </State>
-  <State entryAction="LocVar(sjTime)=0;" whileAction="LocVar(sjTime)++;" type="regular" id="4" name="Using" exitAction="">
+  <State entryAction="LocVar(sjTime)=InPort(rndSjTime); LocVar(sjCounter)=0;" whileAction="LocVar(sjCounter)++;" type="regular" id="4" name="Using" exitAction="">
    <Hmi width="400" radius="8" height="80">
     <Position>
      <Point x="478" y="510"/>
@@ -44,7 +44,7 @@
      <Point x="140" y="129"/>
     </ControlPoint>
     <EndPoint>
-     <Point x="138.7142857142857" y="159"/>
+     <Point x="147.2857142857143" y="163"/>
     </EndPoint>
     <GuardPoint>
      <Point x="8.90070286343755e-308" y="8.90070286343755e-308"/>
@@ -58,7 +58,7 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="LocVar(sjTime) > 0" srcStateId="2" action="OutPort(request)=InPort(id);" priority="1" events="" id="2" dstStateId="3">
+  <Transition guard="LocVar(sjCounter) > LocVar(sjTime)" srcStateId="2" action="OutPort(request)=InPort(id);" priority="1" events="" id="2" dstStateId="3">
    <Hmi visible="1">
     <ActionPoint>
      <Point x="453.5" y="126.5"/>
@@ -76,7 +76,7 @@
      <Point x="268" y="186"/>
     </PriorityPoint>
     <StartPoint>
-     <Point x="338" y="188"/>
+     <Point x="413" y="192"/>
     </StartPoint>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
@@ -104,19 +104,19 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="LocVar(sjTime) > 0" srcStateId="4" action="OutPort(ack_notRelease)=0;" priority="1" events="" id="4" dstStateId="2">
+  <Transition guard="LocVar(sjCounter) > LocVar(sjTime)" srcStateId="4" action="OutPort(ack_notRelease) = -1;" priority="1" events="" id="4" dstStateId="2">
    <Hmi visible="1">
     <ActionPoint>
-     <Point x="192.25" y="371.75"/>
+     <Point x="220.25" y="418.75"/>
     </ActionPoint>
     <ControlPoint>
      <Point x="134.5" y="432.5"/>
     </ControlPoint>
     <EndPoint>
-     <Point x="170.8571428571429" y="239"/>
+     <Point x="190.1428571428572" y="243"/>
     </EndPoint>
     <GuardPoint>
-     <Point x="207.75" y="345.25"/>
+     <Point x="198.75" y="391.25"/>
     </GuardPoint>
     <PriorityPoint>
      <Point x="303" y="329"/>
@@ -136,7 +136,7 @@
      <Point x="535.5" y="287.5"/>
     </ControlPoint>
     <EndPoint>
-     <Point x="338" y="221"/>
+     <Point x="413" y="225"/>
     </EndPoint>
     <GuardPoint>
      <Point x="255.75" y="267.75"/>
@@ -156,6 +156,7 @@
    <Attribute position="0" multiplicity="1" alias="id" type="int32_t"/>
    <Attribute position="1" multiplicity="1" alias="arbResponse" type="int32_t"/>
    <Attribute position="2" multiplicity="1" alias="busResponse" type="int32_t"/>
+   <Attribute position="3" multiplicity="1" alias="rndSjTime" type="int32_t"/>
   </Input>
   <Output>
    <Attribute position="0" multiplicity="1" alias="request" type="int32_t"/>
@@ -163,6 +164,7 @@
   </Output>
   <LocalVariables>
    <Attribute position="0" multiplicity="1" alias="sjTime" type="int8_t"/>
+   <Attribute position="1" multiplicity="1" alias="sjCounter" type="int8_t"/>
   </LocalVariables>
   <EventsIn/>
   <EventsOut/>
