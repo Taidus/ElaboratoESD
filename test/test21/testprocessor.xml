@@ -18,9 +18,9 @@
    </Hmi>
   </State>
   <State entryAction="" whileAction="" type="regular" id="3" name="Requesting" exitAction="OutPort(request) = 0;">
-   <Hmi width="120" radius="8" height="80">
+   <Hmi width="160" radius="8" height="80">
     <Position>
-     <Point x="810" y="222"/>
+     <Point x="830" y="222"/>
     </Position>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
@@ -81,7 +81,7 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="InPort(busId) > 0" srcStateId="3" action="OutPort(ack_notRelease)=1; OutPort(bus)=InPort(busId);" priority="1" events="" id="3" dstStateId="4">
+  <Transition guard="InPort(busId) > 0" srcStateId="3" action="OutPort(ack_notRelease)=1;" priority="1" events="" id="3" dstStateId="4">
    <Hmi visible="1">
     <ActionPoint>
      <Point x="800" y="372.25"/>
@@ -93,18 +93,18 @@
      <Point x="678" y="497"/>
     </EndPoint>
     <GuardPoint>
-     <Point x="910" y="341.75"/>
+     <Point x="835" y="338.75"/>
     </GuardPoint>
     <PriorityPoint>
      <Point x="510" y="238"/>
     </PriorityPoint>
     <StartPoint>
-     <Point x="809.7142857142857" y="262"/>
+     <Point x="829.6190476190476" y="262"/>
     </StartPoint>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="LocVar(sjTime) > 2" srcStateId="4" action="OutPort(ack_notRelease)=0;  OutPort(bus)=0;" priority="1" events="" id="4" dstStateId="2">
+  <Transition guard="LocVar(sjTime) > 0" srcStateId="4" action="OutPort(ack_notRelease)=0;" priority="1" events="" id="4" dstStateId="2">
    <Hmi visible="1">
     <ActionPoint>
      <Point x="192.25" y="371.75"/>
@@ -159,7 +159,6 @@
   <Output>
    <Attribute position="0" multiplicity="1" alias="request" type="int32_t"/>
    <Attribute position="1" multiplicity="1" alias="ack_notRelease" type="int32_t"/>
-   <Attribute position="2" multiplicity="1" alias="bus" type="int32_t"/>
   </Output>
   <LocalVariables>
    <Attribute position="0" multiplicity="1" alias="sjTime" type="int8_t"/>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SMCube version="1.0" name="StateMachine">
  <States>
-  <State entryAction="LocVar(procId)=0;" whileAction="" type="regular" id="1" name="Waiting" exitAction="">
+  <State entryAction="" whileAction="" type="regular" id="1" name="Waiting" exitAction="">
    <Hmi width="150" radius="8" height="80">
     <Position>
      <Point x="240" y="164"/>
@@ -17,7 +17,7 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </State>
-  <State entryAction="" whileAction="" type="regular" id="3" name="Elaborating" exitAction="">
+  <State entryAction="LocVar(elabProcId)=InPort(request);" whileAction="" type="regular" id="3" name="Elaborating" exitAction="">
    <Hmi width="250" radius="8" height="80">
     <Position>
      <Point x="648" y="156"/>
@@ -26,17 +26,17 @@
    </Hmi>
   </State>
   <State entryAction="" whileAction="" type="regular" id="4" name="Accepting" exitAction="">
-   <Hmi width="140" radius="8" height="80">
+   <Hmi width="280" radius="8" height="80">
     <Position>
-     <Point x="583" y="369"/>
+     <Point x="653" y="369"/>
     </Position>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </State>
-  <State entryAction="" whileAction="" type="regular" id="5" name="Serving" exitAction="">
-   <Hmi width="140" radius="8" height="80">
+  <State entryAction="" whileAction="" type="regular" id="5" name="Serving" exitAction="OutPort(switchProc)=0;">
+   <Hmi width="200" radius="8" height="80">
     <Position>
-     <Point x="207" y="364"/>
+     <Point x="215" y="364"/>
     </Position>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
@@ -66,7 +66,7 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="InPort(request)==1" srcStateId="1" action="" priority="1" events="" id="2" dstStateId="3">
+  <Transition guard="InPort(request)>0" srcStateId="1" action="" priority="1" events="" id="2" dstStateId="3">
    <Hmi visible="1">
     <ActionPoint>
      <Point x="403.75" y="175.25"/>
@@ -89,30 +89,30 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="" srcStateId="3" action="OutPort(grant)=1;" priority="1" events="" id="3" dstStateId="4">
+  <Transition guard="" srcStateId="3" action="OutPort(grant)=1; OutPort(switchProc)=LocVar(elabProcId);" priority="1" events="" id="3" dstStateId="4">
    <Hmi visible="1">
     <ActionPoint>
-     <Point x="607.5" y="282.25"/>
+     <Point x="678.5" y="288.25"/>
     </ActionPoint>
     <ControlPoint>
-     <Point x="623" y="254.5"/>
+     <Point x="737" y="252.5"/>
     </ControlPoint>
     <EndPoint>
-     <Point x="577" y="329"/>
+     <Point x="641" y="329"/>
     </EndPoint>
     <GuardPoint>
-     <Point x="688" y="256.25"/>
+     <Point x="814" y="261.25"/>
     </GuardPoint>
     <PriorityPoint>
      <Point x="496" y="203"/>
     </PriorityPoint>
     <StartPoint>
-     <Point x="601.5714285714287" y="196"/>
+     <Point x="658.5714285714287" y="196"/>
     </StartPoint>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="InPort(proc1)==1" srcStateId="4" action="" priority="1" events="" id="4" dstStateId="5">
+  <Transition guard="InPort(ack_notRelease)==1" srcStateId="4" action="" priority="1" events="" id="4" dstStateId="5">
    <Hmi visible="1">
     <ActionPoint>
      <Point x="390.5" y="425.75"/>
@@ -121,7 +121,7 @@
      <Point x="395" y="408.5"/>
     </ControlPoint>
     <EndPoint>
-     <Point x="277" y="367"/>
+     <Point x="315" y="367"/>
     </EndPoint>
     <GuardPoint>
      <Point x="311.5" y="399.25"/>
@@ -135,10 +135,10 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="InPort(request)==0" srcStateId="5" action="OutPort(grant)=0;" priority="1" events="" id="5" dstStateId="1">
+  <Transition guard="InPort(ack_notRelease)==0" srcStateId="5" action="OutPort(grant)=0;" priority="1" events="" id="5" dstStateId="1">
    <Hmi visible="1">
     <ActionPoint>
-     <Point x="197.25" y="282.25"/>
+     <Point x="212.25" y="280.25"/>
     </ActionPoint>
     <ControlPoint>
      <Point x="164.5" y="274.5"/>
@@ -147,13 +147,13 @@
      <Point x="205.7142857142857" y="204"/>
     </EndPoint>
     <GuardPoint>
-     <Point x="189.75" y="254.25"/>
+     <Point x="190.75" y="257.25"/>
     </GuardPoint>
     <PriorityPoint>
      <Point x="200" y="301"/>
     </PriorityPoint>
     <StartPoint>
-     <Point x="194" y="324"/>
+     <Point x="196.4285714285714" y="324"/>
     </StartPoint>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
@@ -162,14 +162,14 @@
  <DataModel>
   <Input>
    <Attribute position="0" multiplicity="1" alias="request" type="int32_t"/>
-   <Attribute position="1" multiplicity="1" alias="proc1" type="int32_t"/>
-   <Attribute position="2" multiplicity="1" alias="proc2" type="int32_t"/>
+   <Attribute position="1" multiplicity="1" alias="ack_notRelease" type="int32_t"/>
   </Input>
   <Output>
    <Attribute position="0" multiplicity="1" alias="grant" type="int32_t"/>
+   <Attribute position="1" multiplicity="1" alias="switchProc" type="int32_t"/>
   </Output>
   <LocalVariables>
-   <Attribute position="0" multiplicity="1" alias="procId" type="int32_t"/>
+   <Attribute position="0" multiplicity="1" alias="elabProcId" type="int32_t"/>
   </LocalVariables>
   <EventsIn/>
   <EventsOut/>
