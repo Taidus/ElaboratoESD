@@ -81,10 +81,10 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="InPort(busId) > 0" srcStateId="3" action="OutPort(ack_notRelease)=1;" priority="1" events="" id="3" dstStateId="4">
+  <Transition guard="InPort(arbResponse) == InPort(id) &amp;&amp; InPort(busResponse) > 0" srcStateId="3" action="OutPort(ack_notRelease)=1;" priority="1" events="" id="3" dstStateId="4">
    <Hmi visible="1">
     <ActionPoint>
-     <Point x="800" y="372.25"/>
+     <Point x="888" y="366.25"/>
     </ActionPoint>
     <ControlPoint>
      <Point x="803" y="445.5"/>
@@ -93,7 +93,7 @@
      <Point x="678" y="497"/>
     </EndPoint>
     <GuardPoint>
-     <Point x="835" y="338.75"/>
+     <Point x="825" y="330.75"/>
     </GuardPoint>
     <PriorityPoint>
      <Point x="510" y="238"/>
@@ -127,7 +127,7 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="InPort(busId) == 0" srcStateId="3" action="" priority="2" events="" id="5" dstStateId="2">
+  <Transition guard="InPort(arbResponse) > 0 &amp;&amp; (InPort(arbResponse) != InPort(id) || InPort(busResponse) &lt; 0)" srcStateId="3" action="" priority="2" events="" id="5" dstStateId="2">
    <Hmi visible="1">
     <ActionPoint>
      <Point x="520.75" y="295.25"/>
@@ -139,7 +139,7 @@
      <Point x="338" y="221"/>
     </EndPoint>
     <GuardPoint>
-     <Point x="505.75" y="267.75"/>
+     <Point x="255.75" y="267.75"/>
     </GuardPoint>
     <PriorityPoint>
      <Point x="751" y="237"/>
@@ -154,7 +154,8 @@
  <DataModel>
   <Input>
    <Attribute position="0" multiplicity="1" alias="id" type="int32_t"/>
-   <Attribute position="1" multiplicity="1" alias="busId" type="int32_t"/>
+   <Attribute position="1" multiplicity="1" alias="arbResponse" type="int32_t"/>
+   <Attribute position="2" multiplicity="1" alias="busResponse" type="int32_t"/>
   </Input>
   <Output>
    <Attribute position="0" multiplicity="1" alias="request" type="int32_t"/>
