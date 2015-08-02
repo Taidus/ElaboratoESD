@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SMCube version="1.0" name="StateMachine">
+ <States>
+  <State entryAction="" whileAction="" type="initial" id="1" name="" exitAction="">
+   <Hmi width="12" radius="6" height="12">
+    <Position>
+     <Point x="135" y="105"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="LocVar(sjTime)=InPort(rndSjTime); LocVar(sjCounter)=0;" whileAction="LocVar(sjCounter)++; OutPort(ack_notRelease) = 0;" type="regular" id="2" name="Idle" exitAction="">
+   <Hmi width="400" radius="8" height="80">
+    <Position>
+     <Point x="213" y="203"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="" whileAction="" type="regular" id="3" name="Requesting" exitAction="OutPort(request) = 0;">
+   <Hmi width="160" radius="8" height="80">
+    <Position>
+     <Point x="830" y="222"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="LocVar(sjTime)=InPort(rndSjTime); LocVar(sjCounter)=0;" whileAction="LocVar(sjCounter)++;" type="regular" id="4" name="Using" exitAction="">
+   <Hmi width="400" radius="8" height="80">
+    <Position>
+     <Point x="478" y="510"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+ </States>
+ <Transitions>
+  <Transition guard="" srcStateId="1" action="" priority="1" events="" id="1" dstStateId="2">
+   <Hmi visible="0">
+    <ActionPoint>
+     <Point x="8.90070286343755e-308" y="8.900702863567067e-308"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="140" y="129"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="147.2857142857143" y="163"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="8.90070286343755e-308" y="8.90070286343755e-308"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="8.90070286343755e-308" y="8.900702863567067e-308"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="83" y="58"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="LocVar(sjCounter) > LocVar(sjTime)" srcStateId="2" action="OutPort(request)=InPort(id);" priority="1" events="" id="2" dstStateId="3">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="453.5" y="126.5"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="566" y="125"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="750" y="221"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="453.5" y="97.5"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="268" y="186"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="413" y="192"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(arbResponse) == InPort(id) &amp;&amp; InPort(busResponse) > 0" srcStateId="3" action="OutPort(ack_notRelease)=1;" priority="1" events="" id="3" dstStateId="4">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="888" y="366.25"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="803" y="445.5"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="678" y="497"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="825" y="330.75"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="510" y="238"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="829.6190476190476" y="262"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="LocVar(sjCounter) > LocVar(sjTime)" srcStateId="4" action="OutPort(ack_notRelease) = -1;" priority="1" events="" id="4" dstStateId="2">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="220.25" y="418.75"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="134.5" y="432.5"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="190.1428571428572" y="243"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="198.75" y="391.25"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="303" y="329"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="278" y="497"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(arbResponse) > 0 &amp;&amp; InPort(busResponse) &lt; 0" srcStateId="3" action="" priority="2" events="" id="5" dstStateId="2">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="551.75" y="300.25"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="535.5" y="287.5"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="413" y="225"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="387.75" y="267.75"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="751" y="237"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="750" y="237"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+ </Transitions>
+ <DataModel>
+  <Input>
+   <Attribute position="0" multiplicity="1" alias="id" type="int32_t"/>
+   <Attribute position="1" multiplicity="1" alias="arbResponse" type="int32_t"/>
+   <Attribute position="2" multiplicity="1" alias="busResponse" type="int32_t"/>
+   <Attribute position="3" multiplicity="1" alias="rndSjTime" type="int32_t"/>
+  </Input>
+  <Output>
+   <Attribute position="0" multiplicity="1" alias="request" type="int32_t"/>
+   <Attribute position="1" multiplicity="1" alias="ack_notRelease" type="int32_t"/>
+  </Output>
+  <LocalVariables>
+   <Attribute position="0" multiplicity="1" alias="sjTime" type="int8_t"/>
+   <Attribute position="1" multiplicity="1" alias="sjCounter" type="int8_t"/>
+  </LocalVariables>
+  <EventsIn/>
+  <EventsOut/>
+ </DataModel>
+</SMCube>

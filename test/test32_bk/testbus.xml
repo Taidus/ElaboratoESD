@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SMCube version="1.0" name="StateMachine">
+ <States>
+  <State entryAction="OutPort(toNextBus) = 0;" whileAction="OutPort(toPrevBus) = 0;" type="regular" id="1" name="Idle" exitAction="OutPort(toPrevBus) = 0; ">
+   <Hmi width="350" radius="8" height="80">
+    <Position>
+     <Point x="405" y="158"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="" whileAction="" type="initial" id="2" name="" exitAction="">
+   <Hmi width="12" radius="6" height="12">
+    <Position>
+     <Point x="126" y="86"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="" whileAction="" type="regular" id="3" name="Committing" exitAction="OutPort(toPrevBus) = InPort(fromNextBus);">
+   <Hmi width="350" radius="8" height="80">
+    <Position>
+     <Point x="1112" y="263"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="OutPort(toNextBus) = 0;" whileAction="OutPort(toPrevBus) = 0; " type="regular" id="4" name="Waiting" exitAction="OutPort(toPrevBus) = 0; ">
+   <Hmi width="350" radius="8" height="80">
+    <Position>
+     <Point x="1037" y="578"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="OutPort(toNextBus) = 0;" whileAction="OutPort(toPrevBus) = 0;" type="regular" id="5" name="Serving" exitAction="OutPort(toPrevBus) = 0; ">
+   <Hmi width="350" radius="8" height="80">
+    <Position>
+     <Point x="345" y="563"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="" whileAction="" type="regular" id="6" name="ServingAndRelaying" exitAction="">
+   <Hmi width="200" radius="8" height="80">
+    <Position>
+     <Point x="559" y="796"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="" whileAction="" type="regular" id="7" name="Relaying" exitAction="">
+   <Hmi width="200" radius="8" height="80">
+    <Position>
+     <Point x="140" y="407"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+ </States>
+ <Transitions>
+  <Transition guard="" srcStateId="2" action="" priority="1" events="" id="1" dstStateId="1">
+   <Hmi visible="0">
+    <ActionPoint>
+     <Point x="8.90070286343755e-308" y="8.900702863567171e-308"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="371" y="75"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="380.4999999999999" y="118"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="8.90070286343755e-308" y="8.90070286343755e-308"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="8.90070286343755e-308" y="8.900702863567171e-308"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="302" y="69"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(fromPrevBus) &lt; 0" srcStateId="1" action="OutPort(toNextBus) = InPort(id); LocVar(elabProcId) = -InPort(fromPrevBus);" priority="1" events="" id="2" dstStateId="3">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="662.75" y="68.25"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="928.5" y="67.5"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="1193.2" y="223"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="793.25" y="93.75"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="303" y="162"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="580" y="156"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(fromNextBus) == InPort(id)" srcStateId="3" action="OutPort(switchProc) = LocVar(elabProcId);" priority="1" events="" id="3" dstStateId="4">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="1122.5" y="461.25"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="1123" y="475.5"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="1082" y="538"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="1138" y="428.25"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="496" y="203"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="1133.8" y="303"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(ack_notRelease)==1" srcStateId="4" action="" priority="1" events="" id="4" dstStateId="5">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="663.5" y="588.75"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="698" y="655.5"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="520" y="587"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="576.5" y="559.25"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="440" y="346"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="862" y="585"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(ack_notRelease) == -1" srcStateId="5" action="OutPort(switchProc)=0;" priority="1" events="" id="5" dstStateId="1">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="336.25" y="494.25"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="271.5" y="376.5"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="324.9999999999999" y="198"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="317.75" y="466.25"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="200" y="301"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="312.4999999999999" y="523"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(fromPrevBus) > 0" srcStateId="1" action="OutPort(toNextBus) = InPort(fromPrevBus);" priority="2" events="" id="6" dstStateId="3">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="614.5" y="206"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="877" y="148"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="1035" y="223"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="682.5" y="180"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="310" y="156"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="580" y="170"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(fromNextBus) != 0 &amp;&amp; InPort(fromNextBus) != InPort(id)" srcStateId="3" action="" priority="2" events="" id="7" dstStateId="1">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="737" y="418.25"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="669" y="501.5"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="416.6666666666667" y="198"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="568.5" y="389.75"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="845" y="301"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="1040.6" y="303"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(fromPrevBus) != 0" srcStateId="5" action="OutPort(toNextBus) = InPort(fromPrevBus);" priority="2" events="" id="8" dstStateId="6">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="592" y="711.25"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="543" y="649.5"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="590" y="756"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="627" y="686.25"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="224" y="592"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="420.25" y="603"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(fromNextBus) != 0" srcStateId="6" action="OutPort(toPrevBus) = InPort(fromNextBus);" priority="2" events="" id="9" dstStateId="5">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="250.5" y="709.5"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="338" y="750"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="254" y="603"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="296.5" y="685.5"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="293" y="775"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="459" y="777"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(ack_notRelease) == -1" srcStateId="6" action="OutPort(switchProc)=0;" priority="1" events="" id="10" dstStateId="7">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="26.25" y="691"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="55.5" y="857"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="78" y="447"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="22.75" y="663"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="462" y="809"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="459" y="809"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(fromNextBus) != 0" srcStateId="7" action="OutPort(toPrevBus) = InPort(fromNextBus);" priority="1" events="" id="11" dstStateId="1">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="7.75" y="269.25"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="82.5" y="215.5"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="230" y="150"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="52.25" y="240.75"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="109" y="368"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="81" y="367"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+ </Transitions>
+ <DataModel>
+  <Input>
+   <Attribute position="0" multiplicity="1" alias="id" type="int32_t"/>
+   <Attribute position="1" multiplicity="1" alias="ack_notRelease" type="int32_t"/>
+   <Attribute position="2" multiplicity="1" alias="fromPrevBus" type="int32_t"/>
+   <Attribute position="3" multiplicity="1" alias="fromNextBus" type="int32_t"/>
+  </Input>
+  <Output>
+   <Attribute position="0" multiplicity="1" alias="switchProc" type="int32_t"/>
+   <Attribute position="1" multiplicity="1" alias="toPrevBus" type="int32_t"/>
+   <Attribute position="2" multiplicity="1" alias="toNextBus" type="int32_t"/>
+  </Output>
+  <LocalVariables>
+   <Attribute position="0" multiplicity="1" alias="elabProcId" type="int32_t"/>
+  </LocalVariables>
+  <EventsIn/>
+  <EventsOut/>
+ </DataModel>
+</SMCube>

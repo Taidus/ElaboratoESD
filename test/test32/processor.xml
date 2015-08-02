@@ -127,10 +127,10 @@
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
   </Transition>
-  <Transition guard="InPort(arbResponse) > 0 &amp;&amp; (InPort(arbResponse) != InPort(id) || InPort(busResponse) &lt; 0)" srcStateId="3" action="" priority="2" events="" id="5" dstStateId="2">
+  <Transition guard="InPort(arbResponse) > 0 &amp;&amp; InPort(busResponse) &lt; 0" srcStateId="3" action="" priority="2" events="" id="5" dstStateId="2">
    <Hmi visible="1">
     <ActionPoint>
-     <Point x="520.75" y="295.25"/>
+     <Point x="551.75" y="300.25"/>
     </ActionPoint>
     <ControlPoint>
      <Point x="535.5" y="287.5"/>
@@ -139,7 +139,7 @@
      <Point x="413" y="225"/>
     </EndPoint>
     <GuardPoint>
-     <Point x="255.75" y="267.75"/>
+     <Point x="387.75" y="267.75"/>
     </GuardPoint>
     <PriorityPoint>
      <Point x="751" y="237"/>
