@@ -21,6 +21,10 @@
 /*Input data structure*/
 struct StateMachine_0Input
 {
+    int32_t in_0;
+    int32_t in_1;
+    int32_t in_2;
+    int32_t in_3;
 };
 
 /*Output data structure*/
@@ -28,12 +32,13 @@ struct StateMachine_0Output
 {
     int32_t out_0;
     int32_t out_1;
-    int32_t out_2;
 };
 
 /*Local variables data structure*/
 struct StateMachine_0LocalVars
 {
+    int8_t lvar_0;
+    int8_t lvar_1;
 };
 
 /*Events Input definition*/

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SMCube version="1.0" name="StateMachine">
+ <States>
+  <State entryAction="OutPort(grantToProc) =  0; OutPort(reqToProc) =  0;" whileAction="" type="regular" id="1" name="Idle" exitAction="">
+   <Hmi width="350" radius="8" height="80">
+    <Position>
+     <Point x="726" y="205"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="" whileAction="" type="initial" id="2" name="" exitAction="">
+   <Hmi width="12" radius="6" height="12">
+    <Position>
+     <Point x="135" y="78"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="LocVar(request) = InPort(reqFromProc);" whileAction="OutPort(toBus) = 0;" type="regular" id="3" name="NotifyingBuses" exitAction="OutPort(toBus) = 0;">
+   <Hmi width="350" radius="8" height="80">
+    <Position>
+     <Point x="1254" y="459"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="LocVar(procSyncTime) = 0;" whileAction="LocVar(procSyncTime)++;" type="regular" id="4" name="NotifyingProcs" exitAction="">
+   <Hmi width="250" radius="8" height="80">
+    <Position>
+     <Point x="290" y="520"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+  <State entryAction="OutPort(toBus) = InPort(fromBus);" whileAction="OutPort(toBus) = 0;" type="regular" id="5" name="Committing" exitAction="OutPort(toBus) = 0;">
+   <Hmi width="350" radius="8" height="80">
+    <Position>
+     <Point x="719" y="807"/>
+    </Position>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </State>
+ </States>
+ <Transitions>
+  <Transition guard="" srcStateId="2" action="" priority="1" events="" id="1" dstStateId="1">
+   <Hmi visible="0">
+    <ActionPoint>
+     <Point x="2.121995903118174e-314" y="1.487818959914332e-316"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="654" y="113"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="661.5" y="165"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="6.323547458237566e-312" y="4.045476204456329e-300"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="4.063886287555709e-300" y="4.816931467456075e-312"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="589" y="107"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(reqFromProc) > 0" srcStateId="1" action="OutPort(toBus) = -InPort(reqFromProc);" priority="1" events="" id="2" dstStateId="3">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="866" y="327"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="1158" y="205"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="1199.4" y="419"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="923" y="294.5"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="326" y="210"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="901" y="196"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(fromBus) != 0" srcStateId="3" action="OutPort(grantToProc) = InPort(fromBus); OutPort(reqToProc) = LocVar(request);" priority="1" events="" id="3" dstStateId="5">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="656.25" y="639.25"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="1168.5" y="775.5"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="894" y="819"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="851.75" y="610.75"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="665" y="261"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="1202.1" y="499"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="LocVar(procSyncTime) > 0" srcStateId="4" action="" priority="1" events="" id="4" dstStateId="1">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="352.75" y="443.5"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="305.5" y="228"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="551" y="220"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="304.25" y="413"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="358" y="379"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="280" y="480"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+  <Transition guard="InPort(fromBus) != 0" srcStateId="5" action="" priority="1" events="" id="5" dstStateId="1">
+   <Hmi visible="1">
+    <ActionPoint>
+     <Point x="424" y="798"/>
+    </ActionPoint>
+    <ControlPoint>
+     <Point x="316" y="798"/>
+    </ControlPoint>
+    <EndPoint>
+     <Point x="651" y="245"/>
+    </EndPoint>
+    <GuardPoint>
+     <Point x="476.5" y="513.5"/>
+    </GuardPoint>
+    <PriorityPoint>
+     <Point x="722" y="757"/>
+    </PriorityPoint>
+    <StartPoint>
+     <Point x="544" y="814"/>
+    </StartPoint>
+    <Font size="8" family="MS Shell Dlg 2"/>
+   </Hmi>
+  </Transition>
+ </Transitions>
+ <DataModel>
+  <Input>
+   <Attribute position="0" multiplicity="1" alias="reqFromProc" type="int32_t"/>
+   <Attribute position="1" multiplicity="1" alias="fromBus" type="int32_t"/>
+  </Input>
+  <Output>
+   <Attribute position="0" multiplicity="1" alias="toBus" type="int32_t"/>
+   <Attribute position="1" multiplicity="1" alias="reqToProc" type="int32_t"/>
+   <Attribute position="2" multiplicity="1" alias="grantToProc" type="int32_t"/>
+  </Output>
+  <LocalVariables>
+   <Attribute position="0" multiplicity="1" alias="procSyncTime" type="int8_t"/>
+   <Attribute position="1" multiplicity="1" alias="request" type="int8_t"/>
+  </LocalVariables>
+  <EventsIn/>
+  <EventsOut/>
+ </DataModel>
+</SMCube>
