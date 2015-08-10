@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[italian]{babel}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage[hidelinks]{hyperref}
+\usepackage{listings}
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{proof}
+\usepackage{stmaryrd}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+
+%\usepackage{caption}
+%\usepackage{floatrow}%
+%\usepackage{algpseudocode}
+%\usepackage[ruled,noline,linesnumbered]{algorithm2e}
+
+
+%texttt line break trick
+%\usepackage{lipsum}
+%
+%\newcommand*\justify{%
+%  \fontdimen2\font=0.4em% interword space
+%  \fontdimen3\font=0.2em% interword stretch
+%  \fontdimen4\font=0.1em% interword shrink
+%  \fontdimen7\font=0.1em% extra space
+%  \hyphenchar\font=`\-% allowing hyphenation
+%}
+
+%margins
+\usepackage[margin=2cm]{geometry}
+
+
+\let\emptyset\varnothing
+
+\usepackage{mathtools}
+\usepackage{cases}
+
+\graphicspath{ {./images/} }
+
+\title{TITOLO}
+\author{Federico D'Amato, Alessio Sarullo}
+
+\begin{document}
+\maketitle
+
+% \tableofcontents
+% \newpage
+
+\section{Introduzione}
+\input{introduzione}
+\section{SMCube}
+\input{smcube}
+\section{Descrizione del problema}
+\input{bus_arbitration}
+\section{Implementazione}
+\input{implementazione}
+
+
+
+\newpage
+\nocite{*}		 % Mostra in bibliografia anche gli oggetti non citati 
+\bibliography{biblio}{}
+\bibliographystyle{plain}
+
+
+
+
+\end{document}  
