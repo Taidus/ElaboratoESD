@@ -6,11 +6,21 @@ Nel caso di più richieste di utilizzo di uno stesso bus da parte di processori 
 \item Equal priority:  tutti i processori hanno la stessa priorità ed evenutali richieste in conflitto vengono servite in ordine FIFO di arrivo
 \item Fixed priority:  i processori hanno una diversa priorità e in caso di richieste "simultanee" (nello stesso ciclo di clock) si serve quella del processore prioritario
 \end{itemize}
-
 \begin{center}
 \begin{figure}
 \includegraphics[scale=0.6]{uml_processor_bus}
 \caption{Schemi funzionali di processori e bus}
 \label{Fig:uml}
 \end{figure}
+\begin{figure}
+\includegraphics[scale=0.6]{2pc}
+\caption{Collegamento a catena dei bus}
+\label{Fig:2pc}
+\end{figure}
 \end{center}
+Per la generazione dei segnali di \textit{grant} e \textit{nack}, l'arbitro deve far eseguire ad i nodi bus il protocollo \textit{Two-Phase Commit} in versione lineare. In questa versione del protocollo, i nodi sono collegati a catena, come in Figura \ref{Fig:2pc}. Ogni partecipante ha un numero progressivo e conosce il precedente e il successivo; l'ultimo nodo della catena sa di essere l'ultimo. Il protocollo procede attraverso due fasi successive:
+\begin{itemize}
+\item Fase 1: ogni nodo, partendo dal primo fino all'ultimo, comunica di essere arrivato al punto di \textit{commit} (o \textit{abort} nel caso qualcosa non abbia funzionato)
+\item Fase 2: l'ultimo nodo risponde \textit{OK} e il messaggio percorre in senso inverso la catena
+\end{itemize}
+
