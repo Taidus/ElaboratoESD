@@ -1,10 +1,47 @@
-SMCube\cite{smcube} è un tool per la modellazione, simulazione e generazione di codice per automi a stati finiti (\textsl{ASF}) a tempo discreto. È stato progettato per essere integrato all'interno di \textit{Scicos}\cite{scicos}, permettendo la creazione di data-flow diagram che contengono ASF. In questo modello ibrido, i componenti del data-flow diagram vengono usati per gestire il flusso dei dati, mentre gli automi a stati finiti vengono usati per aggiungere comportamenti più complessi, non facilmente implementabili altrimenti.
+SMCube\cite{smcube} è un tool per la modellazione, simulazione e generazione di codice per automi a stati finiti (\textsl{ASF}) a tempo discreto. È stato progettato per essere integrato all'interno del framework \textit{Scicos}\cite{scicos}, permettendo la creazione di data-flow diagram che contengono ASF. In questo modello ibrido, i componenti del data-flow diagram vengono usati per gestire il flusso dei dati, mentre gli automi a stati finiti vengono usati per aggiungere comportamenti più complessi, non facilmente implementabili altrimenti.
 
-A livello applicativo, l'integrazione di ASF progettati con SMCube all'interno di diagrammi Scicos è molto semplice: è sufficiente inserire un blocco SMCube all'interno del diagramma e specificare il file in cui è stato definito l'automa a cui il blocco si riferisce, come mostrato in figura \ref{Fig:smcube_ex}.
+A livello applicativo, l'integrazione di ASF progettati con SMCube all'interno di diagrammi Scicos è molto semplice: è sufficiente inserire un blocco SMCube all'interno del diagramma e specificare il file in cui è stato definito l'automa a cui il blocco si riferisce, come mostrato in figura \ref{Fig:smcube_scicos_ex}.
+
+Nella sezione seguente verrà data un'idea generale dell'applicazione. Per maggiori dettagli si rimanda a \cite{smcube_man}.
 
 \begin{figure}
 \centering
 \makebox[\textwidth][c]{\includegraphics[angle=-90, width=1.2\textwidth]{smcube_block_ex.eps}}%
-\caption{Blocco SMCube (in rosso) all'interno di un diagramma Scicos.}
-\label{Fig:smcube_ex}
+\caption{Blocco SMCube rappresentante un bus (in rosso) all'interno di un diagramma Scicos.}
+\label{Fig:smcube_scicos_ex}
+\end{figure}
+
+\subsection{Modellazione di un ASF tramite SMCube}
+In SMCube la modellazione di un ASF avviene per via grafica. Le figure \ref{Fig:smcube_ex_init} e \ref{Fig:smcube_ex_state} mostrano, rispettivamente, lo stato iniziale e uno stato generico dell'automa, mentre in figura \ref{Fig:smcube_ex_transition} viene mostrata una transizione tra due stati.
+
+Il tempo all'interno di SMCube è discreto ed è scandito dal verificarsi di \textsl{eventi}. L'integrazione con Scicos consente di definire un solo evento, che nel nostro caso è un clock comune a tutti i nodi. Al verificarsi dell'evento si esegue una transizione o, se ciò non è possibile, si permane nello stato attuale.
+
+SMCube prevede la possibilità di eseguire delle \textsl{azioni} durante una transizione oppure entrando, permanendo o uscendo dallo stato. Le azioni consentono di inviare segnali in output o modificare i valori delle variabili locali; questi valori, insieme agli input ricevuti, possono poi essere utilizzati all'interno delle \textsl{guardie}, che permettono di controllare l'esecuzione delle transizioni. In figure \ref{Fig:smcube_ex_ga} è mostrato un esempio di azioni e guardie che fanno utilizzo sia delle variabili locali che dei segnali inviati e ricevuti.
+
+\begin{figure}
+\centering
+\includegraphics[width=0.1\textwidth]{smcube_ex_init.png}
+\caption{Stato iniziale di un ASF in SMCube}
+\label{Fig:smcube_ex_init}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.2\textwidth]{smcube_ex_state.png}
+\caption{Un generico stato in SMCube}
+\label{Fig:smcube_ex_state}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\textwidth]{smcube_ex_transition.png}
+\caption{Transizione di priorità 1 dallo stato \texttt{State\_1} allo stato \texttt{State\_2} in SMCube}
+\label{Fig:smcube_ex_transition}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\textwidth]{smcube_ex_ga2.png}
+\caption{Esempio di azioni e guardie. Le label \textit{en}, \textit{ex} e \textit{wh} indicano rispettivamente le azioni compiute entrando, uscendo o permanendo nello stato. Sulla transizione sono presenti una guardia (tra parentesi quadre) e un'azione (tra graffe). Le keyword \texttt{LocVar}, \texttt{OutPort} e \texttt{InPort} consentono di far riferimento rispettivamente a variabili locali, porte di output e porte di input.}
+\label{Fig:smcube_ex_ga}
 \end{figure}
