@@ -1,15 +1,6 @@
 SMCube\cite{smcube} è un tool per la modellazione, simulazione e generazione di codice per automi a stati finiti (\textsl{ASF}) a tempo discreto. È stato progettato per essere integrato all'interno del framework \textit{Scicos}\cite{scicos}, permettendo la creazione di data-flow diagram che contengono ASF. In questo modello ibrido, i componenti del data-flow diagram vengono usati per gestire il flusso dei dati, mentre gli automi a stati finiti vengono usati per aggiungere comportamenti più complessi, non facilmente implementabili altrimenti.
 
-A livello applicativo, l'integrazione di ASF progettati con SMCube all'interno di diagrammi Scicos è molto semplice: è sufficiente inserire un blocco SMCube all'interno del diagramma e specificare il file in cui è stato definito l'automa a cui il blocco si riferisce, come mostrato in figura \ref{Fig:smcube_scicos_ex}.
-
-Nella sezione seguente verrà data un'idea generale dell'applicazione. Per maggiori dettagli si rimanda a \cite{smcube_man}.
-
-\begin{figure}
-\centering
-\makebox[\textwidth][c]{\includegraphics[angle=-90, width=1.2\textwidth]{smcube_block_ex.eps}}%
-\caption{Blocco SMCube rappresentante un bus (in rosso) all'interno di un diagramma Scicos.}
-\label{Fig:smcube_scicos_ex}
-\end{figure}
+Nelle sezioni seguenti verrà data un'idea generale dell'applicazione. Per maggiori dettagli si rimanda a \cite{smcube_man}.
 
 \subsection{Modellazione di un ASF tramite SMCube}
 In SMCube la modellazione di un ASF avviene per via grafica. Le figure \ref{Fig:smcube_ex_init} e \ref{Fig:smcube_ex_state} mostrano, rispettivamente, lo stato iniziale e uno stato generico dell'automa, mentre in figura \ref{Fig:smcube_ex_transition} viene mostrata una transizione tra due stati.
@@ -44,4 +35,23 @@ SMCube prevede la possibilità di eseguire delle \textsl{azioni} durante una tra
 \includegraphics[width=1\textwidth]{smcube_ex_ga.png}
 \caption{Esempio di azioni e guardie. Le label \textit{en}, \textit{ex} e \textit{wh} indicano rispettivamente le azioni compiute entrando, uscendo o permanendo nello stato. Sulla transizione sono presenti una guardia (tra parentesi quadre) e un'azione (tra graffe). Le keyword \texttt{LocVar}, \texttt{OutPort} e \texttt{InPort} consentono di far riferimento rispettivamente a variabili locali, porte di output e porte di input.}
 \label{Fig:smcube_ex_ga}
+\end{figure}
+
+\subsection{Integrazione con Scicos}
+Scicos è un modellatore grafico, simulatore e generatore di codice per sistemi dinamici. Un diagramma Scicos è costituito da una serie di blocchi comunicanti tra loro attraverso due tipi di porte: dati ed eventi. I dati costituiscono le informazioni di interesse che vengono manipolate dai vari blocchi, mentre gli eventi sono usati per comunicare ad un blocco quando eseguire determinate azioni. In figura \ref{Fig:scicos_ex} è mostrato un esempio di diagramma Scicos.\\
+
+\begin{figure}
+\centering
+\includegraphics[angle=-90, width=0.35\textwidth]{scicos_ex.eps}
+\caption{Un diagramma Scicos che stampa a video un'onda quadra. In rosso sono rappresentati i collegamenti e le porte relativi agli eventi, in nero quelli relativi ai dati. Ad ogni colpo di clock il generatore esegue un'azione, cambiando il valore in output: il risultato è un'onda quadra con periodo pari a 2 colpi di clock.}
+\label{Fig:scicos_ex}
+\end{figure}
+
+L'integrazione di ASF progettati con SMCube all'interno di diagrammi Scicos è molto semplice: è sufficiente inserire un blocco SMCube all'interno del diagramma e specificare il file in cui è stato definito l'automa a cui il blocco si riferisce, come mostrato in figura \ref{Fig:smcube_scicos_ex}. Una volta integrato il blocco, è possibile eseguire la simulazione in due modalità: batch e interattiva. La modalità batch è efficiente, ma non produce output ed è quindi più indicata per eseguire la simulazione dell'intero modello, assumendo che l'ASF rappresentato dal blocco sia corretto. La modalità interattiva, invece, produce un output grafico e consente anche un'esecuzione step-by-step, al costo ovviamente della velocità di esecuzione; è pertanto più indicata per eseguire il debug dell'ASF o anche dell'intero sistema, perché consente di controllare i dati che arrivano all'automa, il sui stato interno o gli output che esso produce.
+
+\begin{figure}
+\centering
+\makebox[\textwidth][c]{\includegraphics[angle=-90, width=1.2\textwidth]{smcube_block_ex.eps}}%
+\caption{Blocco SMCube rappresentante un bus (in rosso) all'interno di un diagramma Scicos.}
+\label{Fig:smcube_scicos_ex}
 \end{figure}
