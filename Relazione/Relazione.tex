@@ -2,15 +2,13 @@
 \usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
 \usepackage{graphicx}
-
+\usepackage{cite}
+\usepackage[hidelinks]{hyperref}
 
 \usepackage{epstopdf}
-
-
-%\usepackage{floatrow}%
-%\usepackage{algpseudocode}
-%\usepackage[ruled,noline,linesnumbered]{algorithm2e}
-
+\usepackage[font=small, labelfont={bf}, margin=0.2cm]{caption}
+\usepackage[font=footnotesize, labelfont={bf}, margin=0.2cm]{subcaption}
+\captionsetup{subrefformat=parens}
 
 %texttt line break trick
 %\usepackage{lipsum}
@@ -46,6 +44,7 @@
 \section{SMCube}
 \input{smcube}
 \section{Descrizione del problema}
+\label{Sec:problem}
 \input{bus_arbitration}
 \section{Implementazione}
 \input{implementazione}
