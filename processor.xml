@@ -20,7 +20,7 @@
   <State entryAction="" whileAction="" type="regular" id="3" name="Requesting" exitAction="OutPort(request) = 0;">
    <Hmi width="160" radius="8" height="80">
     <Position>
-     <Point x="830" y="222"/>
+     <Point x="1072" y="202"/>
     </Position>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
@@ -28,7 +28,7 @@
   <State entryAction="LocVar(sjTime)=InPort(rndSjTime); LocVar(sjCounter)=0;" whileAction="LocVar(sjCounter)++;" type="regular" id="4" name="Using" exitAction="">
    <Hmi width="400" radius="8" height="80">
     <Position>
-     <Point x="478" y="510"/>
+     <Point x="619" y="582"/>
     </Position>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
@@ -61,16 +61,16 @@
   <Transition guard="LocVar(sjCounter) > LocVar(sjTime)" srcStateId="2" action="OutPort(request)=InPort(id);" priority="1" events="" id="2" dstStateId="3">
    <Hmi visible="1">
     <ActionPoint>
-     <Point x="453.5" y="126.5"/>
+     <Point x="584.5" y="121.5"/>
     </ActionPoint>
     <ControlPoint>
-     <Point x="566" y="125"/>
+     <Point x="702" y="108"/>
     </ControlPoint>
     <EndPoint>
-     <Point x="750" y="221"/>
+     <Point x="992" y="201"/>
     </EndPoint>
     <GuardPoint>
-     <Point x="453.5" y="97.5"/>
+     <Point x="584.5" y="92.5"/>
     </GuardPoint>
     <PriorityPoint>
      <Point x="268" y="186"/>
@@ -84,22 +84,22 @@
   <Transition guard="InPort(arbResponse) == InPort(id) &amp;&amp; InPort(busResponse) > 0" srcStateId="3" action="OutPort(ack_notRelease)=1;" priority="1" events="" id="3" dstStateId="4">
    <Hmi visible="1">
     <ActionPoint>
-     <Point x="888" y="366.25"/>
+     <Point x="770" y="463.25"/>
     </ActionPoint>
     <ControlPoint>
-     <Point x="803" y="445.5"/>
+     <Point x="1022" y="564.5"/>
     </ControlPoint>
     <EndPoint>
-     <Point x="678" y="497"/>
+     <Point x="819" y="569"/>
     </EndPoint>
     <GuardPoint>
-     <Point x="825" y="330.75"/>
+     <Point x="615" y="425.75"/>
     </GuardPoint>
     <PriorityPoint>
      <Point x="510" y="238"/>
     </PriorityPoint>
     <StartPoint>
-     <Point x="829.6190476190476" y="262"/>
+     <Point x="1071.619047619048" y="242"/>
     </StartPoint>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
@@ -110,7 +110,7 @@
      <Point x="220.25" y="418.75"/>
     </ActionPoint>
     <ControlPoint>
-     <Point x="134.5" y="432.5"/>
+     <Point x="129.5" y="545.5"/>
     </ControlPoint>
     <EndPoint>
      <Point x="190.1428571428572" y="243"/>
@@ -122,7 +122,7 @@
      <Point x="303" y="329"/>
     </PriorityPoint>
     <StartPoint>
-     <Point x="278" y="497"/>
+     <Point x="419" y="569"/>
     </StartPoint>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
@@ -130,22 +130,22 @@
   <Transition guard="InPort(arbResponse) > 0 &amp;&amp; InPort(busResponse) &lt; 0" srcStateId="3" action="" priority="2" events="" id="5" dstStateId="2">
    <Hmi visible="1">
     <ActionPoint>
-     <Point x="551.75" y="300.25"/>
+     <Point x="657.75" y="306.25"/>
     </ActionPoint>
     <ControlPoint>
-     <Point x="535.5" y="287.5"/>
+     <Point x="658.5" y="284.5"/>
     </ControlPoint>
     <EndPoint>
      <Point x="413" y="225"/>
     </EndPoint>
     <GuardPoint>
-     <Point x="387.75" y="267.75"/>
+     <Point x="493.75" y="273.75"/>
     </GuardPoint>
     <PriorityPoint>
      <Point x="751" y="237"/>
     </PriorityPoint>
     <StartPoint>
-     <Point x="750" y="237"/>
+     <Point x="992" y="217"/>
     </StartPoint>
     <Font size="8" family="MS Shell Dlg 2"/>
    </Hmi>
