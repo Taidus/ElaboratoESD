@@ -1,16 +1,5 @@
 Il modello descritto nella sezione \ref{Sec:problem} è stato realizzato tramite un diagramma Scicos, utilizzando SMCube per modellare processori, bus e coordinatore dei bus. In figura \ref{Fig:model_ep} è mostrato il diagramma relativo al caso Equal Priority, mentre la figura \ref{Fig:model_fp} rappresenta il modello Fixed Priority. Ovviamente, i due modelli sono del tutto identici a parte per come viene gestita la coda delle richieste che arrivano al coordinatore.
 
-%\begin{figure}
-%\centering
-%\subfloat[Diagramma del modello Equal Priority. \label{Fig:model_ep}]
-%	{\makebox[\textwidth][c]{\includegraphics[angle=-90, width=1.2\textwidth]{model_ep.eps}}}
-%
-%\subfloat[Diagramma del modello Fixed Priority. \label{Fig:model_fp}]
-%	{\makebox[\textwidth][c]{\includegraphics[angle=-90, width=1.2\textwidth]{model_fp.eps}}}
-%\caption{I due modelli implementati: Equal Priority \protect\subref{Fig:model_ep} e Fixed Priority \protect\subref{Fig:model_fp}. In grigio sono evidenziati i blocchi che costituiscono la coda di priorità.}
-%\label{Fig:models}
-%\end{figure}
-
 \begin{figure}
 \vspace{-3cm}
 \centerline{
@@ -37,7 +26,7 @@ Il modello descritto nella sezione \ref{Sec:problem} è stato realizzato tramite
 
 \begin{enumerate}
 \item \textbf{Disporre i bus secondo una topologia ad anello orientato}. Il motivo di questa scelta deriva da un controllo che Scicos effettua in fase di compilazione del modello per rilevare \textsl{loop algebrici}, ossia cicli di input e output potenzialmente infiniti che portano al fallimento della simulazione (figura \ref{Fig:alg_loop}). È quindi necessario aggiungere un elemento di ritardo qualora due blocchi debbano comunicare reciprocamente (o un blocco utilizzi una sua risposta come input, come accade nell'esempio di figura \ref{Fig:alg_loop_solved}). Questo significa che, nel caso di una struttura lineare come quella mostrata in figura \ref{Fig:2pc}, ogni messaggio della seconda fase del protocollo subirebbe un ritardo di un colpo di clock, rendendo la complessità temporale del protocollo lineare rispetto al numero di nodi. Con una struttura ad anello orientato, invece, occorre inserire un blocco ritardo soltanto tra due bus. La configurazione ottimale prevede il ritardo tra l'ultimo bus dell'anello (ossia quello che precede il coordinatore del 2PC) ed il coordinatore: così facendo, in un colpo di clock viene deciso quale bus soddisferà la richiesta e nel secondo colpo di clock viene raggiunta conoscenza comune.
-\item \textbf{Separare la logica del coordinatore del 2PC da quella dei bus}. In questo modo tutti i bus hanno lo stesso comportamento, evitando di dover differenziare la logica del bus coordinatore da quella degli altri; inoltre, l'automa a stati finiti di un coordinatore \textquotedblleft semplice\textquotedblright{} è ovviamente meno complesso di quello di un coordinatore che è anche un bus, diminuendo quindi la possibilità di errori in fase di implementazione. Il costo da pagare è soltanto l'aggiunta del nodo coordinatore all'interno dell'anello dei bus.
+\item \textbf{Separare la logica del coordinatore del 2PC da quella dei bus}. In questo modo tutti i bus hanno lo stesso comportamento, evitando di dover differenziare la logica del bus coordinatore da quella degli altri. Inoltre, l'automa a stati finiti di un coordinatore \textquotedblleft semplice\textquotedblright{} è ovviamente meno complesso di quello di un coordinatore che è anche un bus, diminuendo quindi la possibilità di errori in fase di implementazione. Il costo da pagare è soltanto l'aggiunta del nodo coordinatore all'interno dell'anello dei bus.
 \end{enumerate}
 
 \begin{figure}
@@ -60,17 +49,9 @@ Il modello descritto nella sezione \ref{Sec:problem} è stato realizzato tramite
 \label{Fig:loops}
 \end{figure}
 
-%\begin{figure}
-%\centering
-%\subfloat[\label{Fig:alg_loop}]
-%	{\makebox[.5\textwidth][c]{\includegraphics[angle=-90, totalheight=.25\textwidth]{alg_loop.eps}}}
-%\subfloat[\label{Fig:alg_loop_solved}]
-%	{\makebox[.5\textwidth][c]{\includegraphics[angle=-90, totalheight=.25\textwidth]{alg_loop_solved.eps}}}
-%\caption{La figura \protect\subref{Fig:alg_loop} mostra un diagramma Scicos che contiene un loop algebrico, mentre in figura \protect\subref{Fig:alg_loop_solved} è raffigurato un diagramma equivalente che risolve il problema inserendo un blocco ritardo.}
-%\label{Fig:loops}
-%\end{figure}
-
 \noindent
+Il modello è costruito per via grafica ed è abbastanza autoesplicativo: è facile vedere come i processori, il coordinatore ed i bus sono collegati tra di loro. Vale la pena però porre l'attenzione sugli switch antecedenti ai bus che filtrano gli output dei processori. Mentre per effettuare la richiesta i processori comunicano di fatto solo con il coordinatore, una volta garantito l'accesso la comunicazione con i bus avviene per via diretta, per evitare di aggiungere ulteriore carico di lavoro al coordinatore e rallentare le comunicazioni. Questo vuol dire che tutti i processori sono collegati a tutti i bus, ma \textit{non} è vero che tutti i segnali inviati dai processori arrivano a tutti i bus: ogni bus, infatti, controlla il proprio switch in modo che solo i segnali inviati dal processore che ha l'accesso possano arrivare.\\
+
 Nel seguito descriveremo gli automi che modellano i processori, i bus e il coordinatore dei bus.
 
 \subsection{Processore} 
@@ -78,9 +59,7 @@ L'automa del processore è riprodotto in figura \ref{Fig:proc_fsm}. È funzional
 
 \begin{figure}
 \vspace{-1cm}
-\centerline{
-	\includegraphics[width=1.4\textwidth]{processor.png}
-}
+\centerline{\includegraphics[width=1.4\textwidth]{processor.png}}
 \caption{ASF di un processore.}
 \label{Fig:proc_fsm}
 \end{figure}
@@ -100,9 +79,7 @@ L'automa del coordinatore viene mostrato in figura \ref{Fig:coord_fsm}. È compo
 
 \begin{figure}
 \vspace{-2cm}
-\centerline{
-	\includegraphics[width=1.4\textwidth]{busCoord.png}
-}
+\centerline{\includegraphics[width=1.4\textwidth]{busCoord.png}}
 \caption{ASF del coordinatore dei bus.}
 \label{Fig:coord_fsm}
 \end{figure}
@@ -127,12 +104,7 @@ Lo stato \texttt{Relaying} e le altre transizioni uscenti dagli stati \texttt{Se
 
 \begin{figure}[t]
 \vspace{-2cm}
-\centerline{
-	\includegraphics[width=1.6\textwidth]{bus.png}
-}
+\centerline{\includegraphics[width=1.6\textwidth]{bus.png}}
 \caption{ASF dei bus.}
 \label{Fig:bus_fsm}
 \end{figure}
-
-
-
