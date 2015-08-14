@@ -57,14 +57,13 @@ Nel seguito descriveremo gli automi che modellano i processori, i bus e il coord
 \subsection{Processore} 
 L'automa del processore è riprodotto in figura \ref{Fig:proc_fsm}. È funzionalmente equivalente a quello riportato nelle specifiche e mostrato in figura \ref{Fig:uml}. Da notare che il tempo di soggiorno negli stati \texttt{Idle} e \texttt{Using} è random e viene campionato al momento dell'entrata nello stato.
 
-\begin{figure}
-\vspace{-1cm}
+\begin{figure}[!hb]
+%\vspace{-1cm}
 \centerline{\includegraphics[width=1.4\textwidth]{processor.png}}
 \caption{ASF di un processore.}
 \label{Fig:proc_fsm}
+\vspace{-2cm}
 \end{figure}
-
-\pagebreak
 
 \subsection{Coordinatore dei bus} 
 L'automa del coordinatore viene mostrato in figura \ref{Fig:coord_fsm}. È composto da tre stati:
@@ -75,16 +74,25 @@ L'automa del coordinatore viene mostrato in figura \ref{Fig:coord_fsm}. È compo
 \item \texttt{Committing}: la richiesta è passata per tutti i bus dell'anello, tornando al coordinatore. Questo significa che a tutti i bus è arrivata la notifica della richiesta e sono tutti in attesa del commit. Il messaggio che arriva al coordinatore contiene l'id del bus che soddisferà la richiesta (o -1 se non ci sono bus disponibili) e il coordinatore non deve fare altro che inoltrarlo sia ai bus che ai processori. Quando il messaggio percorre tutto l'anello e ritorna al coordinatore, tutti i bus e i processori sono stati notificati del risultato della richiesta e il coordinatore può tornare nello stato di \texttt{Idle}.
 \end{itemize}
 
-\pagebreak
-
-\begin{figure}
-\vspace{-2cm}
-\centerline{\includegraphics[width=1.4\textwidth]{busCoord.png}}
+\begin{figure}[!hb]
+\vspace{-.5cm}
+\centerline{\includegraphics[width=1.3\textwidth]{busCoord.png}}
 \caption{ASF del coordinatore dei bus.}
 \label{Fig:coord_fsm}
+\vspace{-2cm}
 \end{figure}
 
+\pagebreak
+
 \subsection{Bus} 
+
+\begin{figure}[t]
+\vspace{-2cm}
+\centerline{\includegraphics[width=1.6\textwidth]{bus.png}}
+\caption{ASF dei bus.}
+\label{Fig:bus_fsm}
+\end{figure}
+
 I bus sono caratterizzati dall'ASF riportato in figura \ref{Fig:bus_fsm}. Rispetto alla macchina di figura \ref{Fig:uml} sono presenti stati aggiuntivi, derivanti dalla necessità di poter eseguire il 2PC e di doverlo fare sia mentre il bus è \texttt{Idle} che mentre serve un processore (stato \texttt{Serving}). \\
 
 
@@ -101,10 +109,3 @@ In linea di principio, un bus rimane \texttt{Serving} fino a quando non riceve u
 Se un 2PC viene iniziato mentre il bus sta servendo un processore, la richiesta non può essere localmente accolta: l'unica azione che il bus può eseguire è quella di ritrasmettere il messaggio nell'anello (\textit{relaying}), passando quindi nello stato \texttt{ServingAndRelaying}. Una volta che la prima fase del 2PC viene portata a termine e arriva il messaggio della seconda fase, il processore può tornare nello stato \texttt{Serving}.
 
 Lo stato \texttt{Relaying} e le altre transizioni uscenti dagli stati \texttt{Serving} e \texttt{\justify ServingAndRelaying} sono necessarie per gestire i casi in cui il processore rilascia il bus prima che il 2PC venga portato a termine.
-
-\begin{figure}[t]
-\vspace{-2cm}
-\centerline{\includegraphics[width=1.6\textwidth]{bus.png}}
-\caption{ASF dei bus.}
-\label{Fig:bus_fsm}
-\end{figure}

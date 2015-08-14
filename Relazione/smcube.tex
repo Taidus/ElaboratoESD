@@ -1,13 +1,13 @@
-SMCube\cite{smcube} è un tool per la modellazione, simulazione e generazione di codice per automi a stati finiti (\textsl{ASF}) a tempo discreto. È stato progettato per essere integrato all'interno del framework \textit{Scicos}\cite{scicos}, permettendo la creazione di data-flow diagram che contengono ASF. In questo modello ibrido, i componenti del data-flow diagram vengono usati per gestire il flusso dei dati, mentre gli automi a stati finiti vengono usati per aggiungere comportamenti più complessi, non facilmente implementabili altrimenti.
+SMCube\cite{smcube} è un tool per la modellazione, simulazione e generazione di codice per automi a stati finiti (\textsl{ASF}) a tempo discreto. È stato progettato per essere integrato all'interno del framework \textsl{Scicos}\cite{scicos}, permettendo la creazione di data-flow diagram che contengono ASF. In questo modello ibrido, i componenti del data-flow diagram vengono usati per gestire il flusso dei dati, mentre gli automi a stati finiti vengono usati per aggiungere comportamenti più complessi, non facilmente implementabili altrimenti.
 
 Nelle sezioni seguenti verrà data un'idea generale dell'applicazione. Per maggiori dettagli si rimanda a \cite{smcube_man}.
 
 \subsection{Modellazione di un ASF tramite SMCube}
 In SMCube la modellazione di un ASF avviene per via grafica. Le figure \ref{Fig:smcube_ex_init} e \ref{Fig:smcube_ex_state} mostrano, rispettivamente, lo stato iniziale e uno stato generico dell'automa, mentre in figura \ref{Fig:smcube_ex_transition} viene mostrata una transizione tra due stati.
 
-Il tempo all'interno di SMCube è discreto ed è scandito dal verificarsi di \textsl{eventi}. L'integrazione con Scicos consente di definire un solo evento, che nel nostro caso è un clock comune a tutti i nodi. Al verificarsi dell'evento viene effettuata la transizione eseguibile con la priorità più alta, o si permane nello stato attuale se non ci sono transizioni eseguibili.
+Il tempo all'interno di SMCube è discreto ed è scandito dal verificarsi di \textsl{eventi}. L'integrazione con Scicos consente di definirne uno solo, che nel nostro caso è un clock comune a tutti i nodi. Al verificarsi dell'evento viene effettuata la transizione eseguibile con la priorità più alta, o si permane nello stato attuale se non ci sono transizioni eseguibili.
 
-Nella modellazione di una macchina a stati con SMCube esiste la possibilità di eseguire delle \textsl{azioni}. L'esecuzione delle azioni può avvenire con diverse modalità:
+Nella modellazione di una macchina a stati con SMCube esiste la possibilità di definire delle \textsl{azioni}. L'esecuzione delle azioni può avvenire con diverse modalità:
 
 \begin{itemize}
 \item durante una transizione
@@ -61,31 +61,10 @@ Le azioni consentono di inviare segnali in output o modificare i valori delle va
 \label{Fig:smcube_blocks}
 \end{figure}
 
-%\begin{figure}
-%\centering
-%\includegraphics[width=0.1\textwidth]{smcube_ex_init.png}
-%\caption{Stato iniziale di un ASF in SMCube}
-%\label{Fig:smcube_ex_init}
-%\end{figure}
-%
-%\begin{figure}
-%\centering
-%\includegraphics[width=0.2\textwidth]{smcube_ex_state.png}
-%\caption{Un generico stato in SMCube}
-%\label{Fig:smcube_ex_state}
-%\end{figure}
-%
-%\begin{figure}
-%\centering
-%\includegraphics[width=0.5\textwidth]{smcube_ex_transition.png}
-%\caption{Transizione di priorità 1 dallo stato \texttt{State\_1} allo stato \texttt{State\_2} in SMCube}
-%\label{Fig:smcube_ex_transition}
-%\end{figure}
-
 \begin{figure}
 \centering
 \includegraphics[width=1\textwidth]{smcube_ex_ga.png}
-\caption{Esempio di azioni e guardie. Le label \textit{en}, \textit{ex} e \textit{wh} indicano rispettivamente le azioni compiute entrando, uscendo o permanendo nello stato. Sulla transizione sono presenti una guardia (tra parentesi quadre) e un'azione (tra graffe). Le keyword \texttt{LocVar}, \texttt{OutPort} e \texttt{InPort} consentono di far riferimento rispettivamente a variabili locali, porte di output e porte di input.}
+\caption{Esempio di azioni e guardie. Le label \textit{en}, \textit{ex} e \textit{wh} indicano rispettivamente le azioni compiute entrando, uscendo o permanendo nello stato. Sulla transizione sono presenti una guardia (in blu, tra parentesi quadre) e un'azione (in verde, tra graffe). Le keyword \texttt{LocVar}, \texttt{OutPort} e \texttt{InPort} consentono di far riferimento rispettivamente a variabili locali, porte di output e porte di input.}
 \label{Fig:smcube_ex_ga}
 \end{figure}
 
@@ -95,7 +74,7 @@ Scicos è un modellatore grafico, simulatore e generatore di codice per sistemi 
 \begin{figure}
 \centering
 \includegraphics[angle=-90, width=0.35\textwidth]{scicos_ex.eps}
-\caption{Un diagramma Scicos che stampa a video un'onda quadra. In rosso sono rappresentati i collegamenti e le porte relativi agli eventi, in nero quelli relativi ai dati. Ad ogni colpo di clock il generatore esegue un'azione, cambiando il valore in output: il risultato è un'onda quadra con periodo pari a 2 colpi di clock.}
+\caption{Un diagramma Scicos che stampa a video un'onda quadra. In rosso sono rappresentati i collegamenti e le porte relativi agli eventi, in nero quelli relativi ai dati. Ad ogni colpo di clock il generatore esegue un'azione, cambiando il valore in output. Il risultato è un'onda quadra con periodo pari a 2 colpi di clock.}
 \label{Fig:scicos_ex}
 \end{figure}
 
