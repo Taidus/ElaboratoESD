@@ -7,7 +7,16 @@ In SMCube la modellazione di un ASF avviene per via grafica. Le figure \ref{Fig:
 
 Il tempo all'interno di SMCube è discreto ed è scandito dal verificarsi di \textsl{eventi}. L'integrazione con Scicos consente di definire un solo evento, che nel nostro caso è un clock comune a tutti i nodi. Al verificarsi dell'evento viene effettuata la transizione eseguibile con la priorità più alta, o si permane nello stato attuale se non ci sono transizioni eseguibili.
 
-SMCube prevede la possibilità di eseguire delle \textsl{azioni} durante una transizione oppure entrando, permanendo o uscendo dallo stato. Le azioni consentono di inviare segnali in output o modificare i valori delle variabili locali; questi valori, insieme agli input ricevuti, possono poi essere utilizzati all'interno delle \textsl{guardie}, che permettono di controllare l'esecuzione delle transizioni. In figure \ref{Fig:smcube_ex_ga} è mostrato un esempio di azioni e guardie che fanno utilizzo sia delle variabili locali che dei segnali inviati e ricevuti.
+Nella modellazione di una macchina a stati con SMCube esiste la possibilità di eseguire delle \textsl{azioni}. L'esecuzione delle azioni può avvenire con diverse modalità:
+
+\begin{itemize}
+\item durante una transizione
+\item entrando in uno stato
+\item permanendo in uno stato
+\item uscendo dallo stato.
+\end{itemize}
+
+Le azioni consentono di inviare segnali in output o modificare i valori delle variabili locali; questi valori, insieme agli input ricevuti, possono poi essere utilizzati all'interno delle \textsl{guardie}, che permettono di controllare l'esecuzione delle transizioni. In figure \ref{Fig:smcube_ex_ga} è mostrato un esempio di azioni e guardie che fanno utilizzo sia delle variabili locali che dei segnali inviati e ricevuti.
 
 %\newcommand{\csubfloat}[2][]{%
 %  \makebox[0pt]{\subfloat[#1]{#2}}%
